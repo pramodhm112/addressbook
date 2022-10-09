@@ -67,7 +67,7 @@ jobs:
       run: mvn package -s ./.m2/settings.xml --file pom.xml
       
     - name: Copy war file
-      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war ${{ env.WORKSPACE_PATH }}/addressbook.war
+      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war ${{ github.workspace }}/addressbook.war
     
     - name: Check files
       run: ls
