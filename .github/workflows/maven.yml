@@ -16,13 +16,13 @@ jobs:
       with:
         java-version: 1.8
     - name: Compile with Maven
-      run: mvn compile
+      run: mvn compile -s ./.m2/settings.xml
     - name: Code Review with Maven
-      run: mvn pmd:pmd
+      run: mvn pmd:pmd -s ./.m2/settings.xml
     - name: Testing with Maven
-      run: mvn test  
+      run: mvn test -s ./.m2/settings.xml
     - name: CoverageChecks with Maven
-      run: mvn cobertura:cobertura -Dcobertura.report.format=xml 
+      run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml
     - name: Build with Maven
       run: mvn package -s ./.m2/settings.xml --file pom.xml
     - name: Copy war file
