@@ -68,7 +68,10 @@ jobs:
       
     - name: Copy war file
       run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war ${{ env.WORKSPACE_PATH }}/addressbook.war
-      
+    
+    - name: Check files
+      run: ls
+     
     - name: Deploy war to Artifactory
       run: mvn deploy -s ./.m2/settings.xml --file pom.xml
       
