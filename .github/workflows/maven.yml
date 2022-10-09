@@ -19,8 +19,8 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Compile with Maven
-      run: mvn compile -s ./.m2/settings.xml
+#     - name: Compile with Maven
+#       run: mvn compile -s ./.m2/settings.xml
       
 #     - name: Code Review with Maven
 #       run: mvn pmd:pmd -s ./.m2/settings.xml
@@ -28,8 +28,8 @@ jobs:
 #       run: mvn test -s ./.m2/settings.xml
 #     - name: CoverageChecks with Maven
 #       run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml
-#     - name: Build with Maven
-#       run: mvn package -s ./.m2/settings.xml --file pom.xml
+    - name: Build with Maven
+      run: mvn package -s ./.m2/settings.xml --file pom.xml
       
     - name: Copy war file
       run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
