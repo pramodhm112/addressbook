@@ -66,7 +66,7 @@ jobs:
       run: mvn package -s ./.m2/settings.xml --file pom.xml
       
     - name: Copy war file
-      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
+      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war /tmp/addressbook.war
       
     - name: Deploy war to Artifactory
       run: mvn deploy -s ./.m2/settings.xml --file pom.xml
