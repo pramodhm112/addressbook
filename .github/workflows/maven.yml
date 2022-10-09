@@ -63,7 +63,8 @@ jobs:
 
     - uses: jfrog/setup-jfrog-cli@v2
       env:
-        JF_ENV_1: ${{ secrets.JFROG_ENV_SECRET }}
+        JF_URL: "https://jfrogdev.site"
+        JF_ACCESS_TOKEN: ${{ secrets.JFROG_ENV_SECRET }}
     - run: |
         # Ping the server
         jf rt ping
