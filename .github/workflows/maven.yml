@@ -62,7 +62,7 @@ jobs:
     - name: Register Build in Artifactory
       run: |
         jf rt ping
-        jf rt u **/*.war team1-local-maven-ga --build-name ${{ env.JFROG_CLI_BUILD_NAME }} --build-number ${{ env.JFROG_CLI_BUILD_NUMBER}}
+        jf rt u **/*.war team1-local-maven-ga --build-name "JAVA CI" --build-number 20
         
 #   sonar:
 #     name: Test - SonarCloud Scan
