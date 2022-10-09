@@ -29,11 +29,11 @@ jobs:
     - name: Build with Maven
       run: mvn package -s ./.m2/settings.xml --file pom.xml
       
-    - name: List Files
-      run: ls
-      
     - name: Copy war file
       run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
+      
+    - name: List Files
+      run: ls      
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
