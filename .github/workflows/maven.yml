@@ -24,7 +24,7 @@ jobs:
     - name: CoverageChecks with Maven
       run: mvn cobertura:cobertura -Dcobertura.report.format=xml 
     - name: Build with Maven
-      run: mvn package
+      run: mvn package -s ./.m2/settings.xml --file pom.xml
     - name: Copy war file
       run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
       
