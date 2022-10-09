@@ -1,0 +1,72 @@
+name: Java CI 
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Compile with Maven
+      run: mvn compile
+    - name: Code Review with Maven
+      run: mvn pmd:pmd
+    - name: Testing with Maven
+      run: mvn test  
+    - name: CoverageChecks with Maven
+      run: mvn cobertura:cobertura -Dcobertura.report.format=xml 
+    - name: Build with Maven
+      run: mvn package
+    - name: Copy war file
+      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
+      
+#     - name: Build the Docker image
+#       run: docker build . --file Dockerfile --tag ghcr.io/pramodhm112/maven-deploy-example/addressbook:0.1
+      
+#     - name: Docker credentials
+#       run: echo ${{secrets.DOCKER_AUTH}} | docker login ghcr.io -u pramodhm112 --password-stdin 
+      
+#     - name: Docker Images
+#       run: docker images
+      
+#     - name: Pushing the image on DockerHub
+#       run: docker push ghcr.io/pramodhm112/maven-deploy-example/addressbook:0.1
+        
+#   sonar:
+#     name: Test - SonarCloud Scan
+#     runs-on: ubuntu-latest
+#     needs: [build]
+
+#     steps:
+#       - uses: actions/checkout@v1
+#       - name: Set up JDK 1.8
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 11
+#       - name: SonarCloud Scan
+#         run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_KEY }}
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GHE_AUTH }}
+#   aritifacts:             
+#     name: Publish Maven Artifacts
+#     runs-on: ubuntu-latest
+#     needs: [build, sonar]
+    
+#     steps:
+#       - uses: actions/checkout@v1
+#       - name: Set up JDK 11
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 1.8
+#       - name: Publish artifact on GitHub Packages
+#         run: mvn deploy -Dregistry=https://maven.pkg.github.com/DevTools-India -Dtoken=GHE_AUTH
+#         env:
+#          GITHUB_TOKEN: ${{secrets.GHE_AUTH}}  #npm_token
