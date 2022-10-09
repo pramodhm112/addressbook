@@ -62,7 +62,8 @@ jobs:
     - name: Register Build in Artifactory
       run: |
         jf rt ping
-        jf rt u **/*.war team1-local-maven-ga --build-name ${{ github.workflow }} --build-number ${{ github.run_number }}
+        jf rt u **/*.war team1-local-maven-ga --build-name ${{ github.workflow }} --build-number 1
+        jf rt bp
         
 #   sonar:
 #     name: Test - SonarCloud Scan
