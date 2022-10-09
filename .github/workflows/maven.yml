@@ -130,4 +130,3 @@ jobs:
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3582f355270146c09b05b5642fbe0634 }}
         images: 'jfrogdev.site/team1-docker-local/addressbook:${{ github.sha }}'
 
-  
