@@ -21,14 +21,16 @@ jobs:
         java-version: 1.8
     - name: Compile with Maven
       run: mvn compile -s ./.m2/settings.xml
-    - name: Code Review with Maven
-      run: mvn pmd:pmd -s ./.m2/settings.xml
-    - name: Testing with Maven
-      run: mvn test -s ./.m2/settings.xml
-    - name: CoverageChecks with Maven
-      run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml
-    - name: Build with Maven
-      run: mvn package -s ./.m2/settings.xml --file pom.xml
+      
+#     - name: Code Review with Maven
+#       run: mvn pmd:pmd -s ./.m2/settings.xml
+#     - name: Testing with Maven
+#       run: mvn test -s ./.m2/settings.xml
+#     - name: CoverageChecks with Maven
+#       run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml
+#     - name: Build with Maven
+#       run: mvn package -s ./.m2/settings.xml --file pom.xml
+      
     - name: Copy war file
       run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
       
@@ -45,7 +47,7 @@ jobs:
         images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
 
     - name: Docker credentials
-      run: echo ${{secrets.JFROG_TOKEN}} | docker login ghcr.io -u ${{secrets.JFROG_USER}} --password-stdin 
+      run: echo ${{secrets.JFROG_TOKEN}} | docker login ${{env.REGISTRY}} -u ${{secrets.JFROG_USER}} --password-stdin 
       
     - name: Build and push
       uses: docker/build-push-action@v3
