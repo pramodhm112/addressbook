@@ -40,20 +40,26 @@ jobs:
 #     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag ghcr.io/pramodhm112/maven-deploy-example/addressbook:0.1
 
-    - name: Docker meta
-      id: meta
-      uses: docker/metadata-action@v4.0.1
-      with:
-        images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+#     - name: Docker meta
+#       id: meta
+#       uses: docker/metadata-action@v4.0.1
+#       with:
+#         images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
 
     - name: Docker credentials
       run: echo ${{secrets.JFROG_TOKEN}} | docker login ${{env.REGISTRY}} -u ${{secrets.JFROG_USER}} --password-stdin 
-   
+      
+    - name: Docker Build
+      run: docker build -t addressbook:${{ github.sha }}
+    
     - name: Docker Images
       run: docker images
       
-#     - name: Docker Push
-#       run: 
+    - name: Docker Tag
+      run: docker tag addressbook:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+    
+    - name: Docker Push
+      run: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
 #     - name: Build and push
 #       uses: docker/build-push-action@v3
