@@ -75,7 +75,7 @@ jobs:
       run: echo ${{secrets.JFROG_TOKEN}} | docker login ${{env.REGISTRY}} -u ${{secrets.JFROG_USER}} --password-stdin 
       
     - name: Docker Build Command
-      run: docker build -t addressbook:${{ github.sha }} .
+      run: docker build -t addressbook:${{ github.sha }} addressbook:latest ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:latest . 
     
     - name: Docker Images
       run: docker images
@@ -84,7 +84,9 @@ jobs:
       run: docker tag addressbook:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:${{ github.sha }}
     
     - name: Docker Push Command
-      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:${{ github.sha }}
+      run: |
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:${{ github.sha }}
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:latest
 
     - name: Login to JFrog Artifactory
       uses: jfrog/setup-jfrog-cli@v2
