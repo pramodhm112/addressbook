@@ -39,8 +39,8 @@ jobs:
     - name: Testing with Maven
       run: mvn test -s ./.m2/settings.xml --file pom.xml
       
-    - name: CoverageChecks with Maven
-      run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml --file pom.xml
+#     - name: CoverageChecks with Maven
+#       run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml --file pom.xml
 
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
