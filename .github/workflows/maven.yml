@@ -19,6 +19,7 @@ jobs:
       uses: actions/checkout@v1
       with:
         fetch-depth: 0 
+        
 #     - name: Set up JDK 1.8
 #       uses: actions/setup-java@v1
 #       with:
@@ -29,15 +30,17 @@ jobs:
       with:
         java-version: 11
         
-#     - name: Compile with Maven
-#       run: mvn compile -s ./.m2/settings.xml --file pom.xml
+    - name: Compile with Maven
+      run: mvn compile -s ./.m2/settings.xml --file pom.xml
       
-#     - name: Code Review with Maven
-#       run: mvn pmd:pmd -s ./.m2/settings.xml
-#     - name: Testing with Maven
-#       run: mvn test -s ./.m2/settings.xml --file pom.xml
-#     - name: CoverageChecks with Maven
-#       run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml
+    - name: Code Review with Maven
+      run: mvn pmd:pmd -s ./.m2/settings.xml --file pom.xml
+      
+    - name: Testing with Maven
+      run: mvn test -s ./.m2/settings.xml --file pom.xml
+      
+    - name: CoverageChecks with Maven
+      run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml --file pom.xml
 
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
@@ -88,7 +91,6 @@ jobs:
       env:
         JF_URL: "https://jfrogdev.site"
         JF_ACCESS_TOKEN: ${{ secrets.JFROG_ENV_SECRET }}
-        
         
     - name: Register Build in Artifactory
       run: |
