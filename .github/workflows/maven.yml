@@ -59,7 +59,7 @@ jobs:
       run: docker tag addressbook:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
     
     - name: Docker Push
-      run: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+      run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
 #     - name: Build and push
 #       uses: docker/build-push-action@v3
