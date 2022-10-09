@@ -68,8 +68,8 @@ jobs:
       
     - name: Copy war file
       run: |
-        cp /home/runner/work/addressbook/addressbook/target/addressbook.war ${{ github.workspace }}/addressbook.war
-        cp /home/runner/work/addressbook/addressbook/target/addressbook.war ~/
+        cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
+    
     - name: Check files
       run: ls
      
@@ -105,12 +105,12 @@ jobs:
         jf rt u **/*.war team1-local-maven-ga --build-name "${{ github.workflow }}" --build-number ${{ github.run_number }}
         jf rt bp
         
-    - name: Build and push container image to registry (Azure Service)
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: jfrogdev.site/${{ secrets.AzureAppService_ContainerUsername_f1194918fd7a4aefbb86eb42051397e9 }}/team1-docker-local/addressbook:${{ github.sha }}
-        file: ./Dockerfile        
+#     - name: Build and push container image to registry (Azure Service)
+#       uses: docker/build-push-action@v2
+#       with:
+#         push: true
+#         tags: jfrogdev.site/${{ secrets.AzureAppService_ContainerUsername_f1194918fd7a4aefbb86eb42051397e9 }}/team1-docker-local/addressbook:${{ github.sha }}
+#         file: ./Dockerfile        
 
 
   deploy:
@@ -128,6 +128,6 @@ jobs:
         app-name: 'addressbook-octo-actions'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_3582f355270146c09b05b5642fbe0634 }}
-        images: 'jfrogdev.site/${{ secrets.AzureAppService_ContainerUsername_f1194918fd7a4aefbb86eb42051397e9 }}/team1-docker-local/addressbook:${{ github.sha }}'
+        images: 'jfrogdev.site/team1-docker-local/addressbook:${{ github.sha }}'
 
   
