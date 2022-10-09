@@ -61,9 +61,7 @@ jobs:
     - name: Ping JFrog Artifactory
       run: |
         jf rt ping
-        jf rt dl artifacts/
-        jf rt u aether artifacts/
-        jf rt bp
+        jf rt u **/*.war team1-local-maven-ga
         
 #   sonar:
 #     name: Test - SonarCloud Scan
