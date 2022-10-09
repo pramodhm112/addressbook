@@ -58,10 +58,11 @@ jobs:
         JF_URL: "https://jfrogdev.site"
         JF_ACCESS_TOKEN: ${{ secrets.JFROG_ENV_SECRET }}
         
-    - name: Ping JFrog Artifactory
+        
+    - name: Register Build in Artifactory
       run: |
         jf rt ping
-        jf rt u **/*.war team1-local-maven-ga
+        jf rt u **/*.war team1-local-maven-ga --build-name ${{ env.JFROG_CLI_BUILD_NAME }} --build-number ${{ env.JFROG_CLI_BUILD_NUMBER}}
         
 #   sonar:
 #     name: Test - SonarCloud Scan
