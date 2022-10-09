@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  REGISTRY: jfrogdev.site
+  IMAGE_NAME: team1-docker-local
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,10 +37,25 @@ jobs:
       
 #     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag ghcr.io/pramodhm112/maven-deploy-example/addressbook:0.1
+
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4.0.1
+      with:
+        images: ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+
+    - name: Docker credentials
+      run: echo ${{secrets.JFROG_TOKEN}} | docker login ghcr.io -u ${{secrets.JFROG_USER}} --password-stdin 
       
-#     - name: Docker credentials
-#       run: echo ${{secrets.DOCKER_AUTH}} | docker login ghcr.io -u pramodhm112 --password-stdin 
-      
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        
+        
 #     - name: Docker Images
 #       run: docker images
       
