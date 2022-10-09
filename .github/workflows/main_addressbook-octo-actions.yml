@@ -26,6 +26,12 @@ jobs:
         username: ${{ secrets.AzureAppService_ContainerUsername_f1194918fd7a4aefbb86eb42051397e9 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_18f3e24e40e54b8b8d6b1aeafea0637b }}
 
+    - name: Build with Maven
+      run: mvn package -s ./.m2/settings.xml --file pom.xml
+      
+    - name: Copy war file
+      run: cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
+
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
