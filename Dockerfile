@@ -1,3 +1,3 @@
-FROM tomcat
-ADD addressbook.war /usr/local/tomcat/webapps/
+FROM octo-tomcat
+COPY addressbook.war /usr/local/tomcat/webapps/
 CMD ["catalina.sh","run"]
