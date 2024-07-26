@@ -34,76 +34,13 @@ jobs:
     - name: Compile with Maven
       run: mvn compile -s ./.m2/settings.xml --file pom.xml
       
-    - name: Code Review with Maven
-      run: mvn pmd:pmd -s ./.m2/settings.xml --file pom.xml
-      
-    - name: Testing with Maven
-      run: mvn test -s ./.m2/settings.xml --file pom.xml
-      
-#     - name: CoverageChecks with Maven
-#       run: mvn cobertura:cobertura -Dcobertura.report.format=xml -s ./.m2/settings.xml --file pom.xml
+   
+    
+    - run: echo "Hi pramodhm112/devtools"   
+    
+    - run: echo "Hi pramodhm112/devtools"        
+    
 
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-        
-    - name: Cache Maven packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-        
-    - name: Build and analyze
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=octo-actions_addressbook
-        
-    - name: Build with Maven
-      run: mvn package -s ./.m2/settings.xml --file pom.xml
-      
-    - name: Copy war file
-      run: |
-        cp /home/runner/work/addressbook/addressbook/target/addressbook.war .
-    
-    - name: Check files
-      run: ls
-     
-    - name: Deploy war to Artifactory
-      run: mvn deploy -s ./.m2/settings.xml --file pom.xml
-      
-    - name: Docker credentials
-      run: echo ${{secrets.JFROG_TOKEN}} | docker login ${{env.REGISTRY}} -u ${{secrets.JFROG_USER}} --password-stdin 
-      
-    - name: Docker Build Command
-      run: docker build -t addressbook:${{ github.sha }} -t addressbook:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:latest . 
-    
-    - name: Docker Images
-      run: docker images
-      
-    - name: Docker Tag Command
-      run: docker tag addressbook:${{ github.sha }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:${{ github.sha }}
-    
-    - name: Docker Push Command
-      run: |
-        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:${{ github.sha }}
-        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/addressbook:latest
-
-    - name: Login to JFrog Artifactory
-      uses: jfrog/setup-jfrog-cli@v2
-      env:
-        JF_URL: "https://jfrogdev.site"
-        JF_ACCESS_TOKEN: ${{ secrets.JFROG_ENV_SECRET }}
-        
-    - name: Register Build in Artifactory
-      run: |
-        jf rt ping
-        jf rt u **/*.war team1-local-maven-ga --build-name "${{ github.workflow }}" --build-number ${{ github.run_number }}
-        jf rt bp
         
 #     - name: Build and push container image to registry (Azure Service)
 #       uses: docker/build-push-action@v2
@@ -121,11 +58,7 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'addressbook-octo-actions'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3582f355270146c09b05b5642fbe0634 }}
-        images: 'jfrogdev.site/team1-docker-local/addressbook:${{ github.sha }}'
+    
+    - run: echo "Hi pramodhm112/devtools"   
+    
+    - run: echo "Hi pramodhm112/devtools"    
