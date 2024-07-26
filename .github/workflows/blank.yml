@@ -27,3 +27,18 @@ jobs:
         uses: atlassian/gajira-find-issue-key@v3
         with:
           from: commits
+      - run: echo "pramodhm112/devtools"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pramodhm112/devtools"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "pramodhm112/devtools"
+
+      - run: echo "pramodhm112/devtools"
+
+      
